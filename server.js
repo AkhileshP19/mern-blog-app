@@ -8,6 +8,10 @@ const connectDB = require('./config/db');
 // env config
 dotenv.config();  // if its in any any other folder other than root we can also, specify the path
 
+// router import
+const userRoutes = require('./routes/userRoutes');
+const blogRoutes = require('./routes/blogRoutes');
+
 // MongoDB connection
 connectDB();
 
@@ -19,11 +23,8 @@ app.use(cors());
 app.use(express.json()); // due to this we can receive JSON data from client
 app.use(morgan('dev'));
 
-app.get('/', (req, res) => {
-    res.status(200).send({
-        "message": "Node server"
-    })
-})
+app.use('/api/v1/user', userRoutes);
+app.use('/api/v1/blog', blogRoutes);
 
 // PORT
 const PORT = process.env.PORT || 8080;
