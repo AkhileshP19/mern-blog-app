@@ -19,9 +19,18 @@ connectDB();
 const app = express();
 
 // middlewares
-app.use(cors());
 app.use(express.json()); // due to this we can receive JSON data from client
 app.use(morgan('dev'));
+
+// Allow dynamic Gitpod URLs
+const corsOptions = {
+    origin: [
+      'https://5173-akhileshp19-mernblogapp-a77ynvvh88j.ws-us117.gitpod.io', // Frontend origin
+    ],
+    credentials: true, // Allow cookies or credentials if needed
+  };
+  
+  app.use(cors(corsOptions));
 
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/blog', blogRoutes);
